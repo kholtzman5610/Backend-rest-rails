@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApplicationController
   
     # GET /users/:id
     def show
-      # your code goes here
+      render json: @user
     end
   
     # POST /users
@@ -26,7 +26,12 @@ class Api::V1::UsersController < ApplicationController
   
     # PUT /users/:id
     def update
-      # your code godes here
+      if @user
+        @user.update(user_params)
+        render json: { message: 'User successfully updated.' }, status: 200
+      else
+        render json: { error: 'Unable to update user.' }, status: 400
+      end
     end
   
     # DELETE /users/:id
